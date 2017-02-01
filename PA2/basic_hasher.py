@@ -124,16 +124,19 @@ def hashing_algorithm(paired_end_reads, genome_ht):
     return alignments, genome_aligned_reads
 
 if __name__ == "__main__":
-    genome_name = 'practice_W_1'
+    genome_name = 'hw2undergrad_E_2'
     input_folder = './{}'.format(genome_name)
     chr_name = '{}_chr_1'.format(genome_name)
     reads_fn_end = 'reads_{}.txt'.format(chr_name)
     reads_fn = join(input_folder, reads_fn_end)
+    reads_fn = "/Users/suchitpanjiyar/Desktop/MAC_Desktop/class/cm122/BIOINFO_M260B/data/hw2undergrad_E_2/reads_hw2undergrad_E_2_chr_1.txt"
     ref_fn_end = 'ref_{}.txt'.format(chr_name)
     ref_fn = join(input_folder, ref_fn_end)
+    ref_fn = "/Users/suchitpanjiyar/Desktop/MAC_Desktop/class/cm122/BIOINFO_M260B/data/hw2undergrad_E_2/ref_hw2undergrad_E_2_chr_1.txt"
     key_length = 7
     start = time.clock()
     reads = read_reads(reads_fn)
+
     # If you want to speed it up, cut down the number of reads by
     # changing the line to reads = read_reads(reads_fn)[:<x>] where <x>
     # is the number of reads you want to work with.
@@ -143,4 +146,8 @@ if __name__ == "__main__":
     # print genome_aligned_reads
     # print alignments
     output_str = pretty_print_aligned_reads_with_ref(genome_aligned_reads, alignments, ref)
-    print output_str[:5000]
+    output_file_name = "/Users/suchitpanjiyar/Desktop/aaaa.txt"
+    # print output_str[:5000]
+    # out = join(input_folder, 'aligned_reads_{}.txt'.format(chr_name))
+    with (open(output_file_name, 'w')) as output_file:
+        output_file.write(output_str)
