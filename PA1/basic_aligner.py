@@ -12,11 +12,9 @@ def trivial_algorithm(paired_end_reads, ref):
     """
     This is a functional aligner, but it's a huge simplification that
     generate a LOT of potential bugs.  It's also very slow.
-
     Read the spec carefully; consider how the paired-end reads are
     generated, and ideally, write your own algorithm
     instead of trying to tweak this one (which isn't very good).
-
     :param paired_end_reads: Paired-end reads generated from read_reads
     :param ref: A reference genome generated from read_reference
     :return: 2 lists:
@@ -39,7 +37,7 @@ def trivial_algorithm(paired_end_reads, ref):
             remaining_time = time_passed/count*(len(paired_end_reads)-count)
             print 'Approximately {:.3} minutes remaining'.format(remaining_time)
         for read in read_pair:
-            min_mismatches = len(read) + 1
+            min_mismatches = 3
             min_mismatch_location = -1
             for i in range(len(ref) - len(read)):
                 mismatches = [1 if read[j] != ref[i + j] else 0 for j in range(len(read))]
@@ -77,12 +75,15 @@ def trivial_algorithm(paired_end_reads, ref):
 
 
 if __name__ == "__main__":
-    data_folder = 'practice_W_1'
+    data_folder = 'hw1_W_2'
     input_folder = join('../data/', data_folder)
     f_base = '{}_chr_1'.format(data_folder)
     reads_fn = join(input_folder, 'reads_{}.txt'.format(f_base))
     start = time.clock()
+    # reads_fn = "../data/practice_W_1/reads_hw1_W_2_chr_1.txt"
+    # reference_fn = "../data/practice_W_1/ref_hw1_W_2_chr_1.txt"
     input_reads = read_reads(reads_fn)
+    print reads_fn
     # This will take a while; you can use an array slice for example:
     #
     #   input_reads = reads[:300]
@@ -91,6 +92,7 @@ if __name__ == "__main__":
 
     reference_fn = join(input_folder, 'ref_{}.txt'.format(f_base))
     reference = read_reference(reference_fn)
+    print reference_fn
     alignments, reads = trivial_algorithm(input_reads, reference)
     print alignments
     print reads
